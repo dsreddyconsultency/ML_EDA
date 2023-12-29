@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Screen</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #container {
+            display: flex;
+            height: 100%;
+        }
+
+        #leftPane, #rightPane {
+            flex: 1;
+            height: 100%;
+            border: 1px solid #ccc;
+        }
+               #rightPane {
+          
+            border: 1px solid #000;
+          
+            }
+        #rightPane {
+            flex: 1;
+            overflow: auto;
+            border: 1px solid #000;
+        }
+      
+
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            cursor: pointer;
+        }
+
+    /* Add your CSS styling here if needed */
+    .dot {
+    /*  fill: steelblue;*/
+      r: 2; /* radius of the dots */
+    }
+
+    .axis {
+      fill: none;
+      stroke: black;
+      shape-rendering: crispEdges;
+    }
+
+ .scroll-container {
+      overflow: auto;
+      width: 300px;
+      height: 200px;
+    }
+
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <div id="leftPane">
+   <form id="csvForm">
+ 
+  <label for="csvFile">Upload CSV File:</label>
+  <input type="file" id="csvFile" name="csvFile">  
+    
+    
+    <button type="submit">Submit</button>
+   </form>
+   
+   
+   
+        <h2>Left Pane</h2>
+
+        <button onclick="uploadTable(1)">uploadTable</button>
+<div class="scroll-container">
+        <svg id="scatterplot" width="600" height="400"></svg>
+        </div>
+    </div>
+    <div id="rightPane">
+    <table id="myTable">
+        <thead>
+            <!-- Headers will be dynamically generated -->
+        </thead>
+        <tbody>
+            <!-- Data rows will be dynamically generated -->
+        </tbody>
+    </table>
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="/static/temp.js"></script>
+
+
+
+
+
+
+</body>
+</html>
