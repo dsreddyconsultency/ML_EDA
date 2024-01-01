@@ -1,4 +1,10 @@
- const socket = new WebSocket('wss://'+window.location.host+'/ws');
+   var columnHolder=[];
+   var dataHolder=[];
+   
+
+
+
+const socket = new WebSocket('wss://'+window.location.host+'/ws');
     function parseCSVFile(file) {
         Papa.parse(file, {
             header: true,
@@ -115,68 +121,8 @@ socket.addEventListener("message", (event) => {
 
 
 
-   var columnHolder=[];
-   var dataHolder=[];
      // Function to create a scatter plot with dynamic columns
-  function createScatterPlot(xColumnName, yColumnName) {
-    //console.log(dataHolder[xColumnName]);
- //   const leftPane = d3.select('#scatterplot');
-   
-// Set up the SVG container
-  const margin = { top: 20, right: 20, bottom: 40, left: 40 };
-  const width = 900 - margin.left - margin.right;
-  const height = 400 - margin.top - margin.bottom;
-
-  const svg = d3.select('#scatterplot')
-    .attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
-    .append('g')
-    .attr('transform', `translate(${margin.left},${margin.top})`);
-
-  // Create scales for X and Y axes
-  const xScale = d3.scaleLinear()
-    .domain([1,dataHolder.length])//d3.max(dataHolder, d => d[xColumnName])])
-    .range([0, width]);
-   console.log(d3.max(dataHolder, d => d[xColumnName]));
-  const yScale = d3.scaleLinear()
-    .domain([0, d3.max(dataHolder, d => d[yColumnName])])
-    .range([height, 0]);
-//   console.log(d3.max(dataHolder, d => d[yColumnName])); 
-
-  const colorScale=d3.scaleOrdinal()
-   .domain([0,1])
-   .range(['red','blue']);
-
-
-
-
-
-  // Create X axis
-  const xAxis = d3.axisBottom(xScale);
-  svg.append('g')
-    .attr('class', 'axis')
-    .attr('transform', `translate(0, ${height})`)
-    .call(xAxis);
-
-  // Create Y axis
-  const yAxis = d3.axisLeft(yScale);
-  svg.append('g')
-    .attr('class', 'axis')
-    .call(yAxis);
-
-  // Create circles for each data point
-  svg.selectAll('circle')
-    .data(dataHolder)
-    .enter()
-    .append('circle')
-    .attr('class', 'dot') // Apply the dot class for styling
-    .attr('cx',(_,i)=>xScale(i)) //d => xScale(d[xColumnName]))
-    .attr('cy', d => yScale(d[yColumnName]))
-    .attr('r', d => d.r || 1)
-    .attr("fill",d=>colorScale(d[xColumnName])); // Radius, default to 5 if not specified
-   }
-
-
+  
    
 
 
@@ -259,63 +205,4 @@ socket.addEventListener("message", (event) => {
       }
 
 
-
-
-
-
-    
-//        socket.send(csvData);
-
-//  });  
-  
-  
-  
-  
-  
-  
-  //  function uploadFile() {
-    //    const fileInput = document.getElementById('fileInput');
-   //     const file = fileInput.files[0];
- //        var DataFrame = dfjs.DataFrame;
-      //   fileInput.preventDefault();
-
-//    const formData = new FormData(fileInput.target);
- //   const csvData = formData.get('csvData');
-   // socket.send(csvData);
-
-
-/*        if (file) {
-
-            const formData = new FormData();
-            formData.append('fileInput', file);
-            try{
-             socket.send(formData);
-            } catch (error) {
-            console.error('Error fetching or parsing POST data:', error);
-        }   
-*/
-//           try {
-   /*         const response =  fetch('/upload', {
-                method: 'POST',
-                body: formData,
-            }).then(response => response.text())
-            .then(message => {
-               // console.log(message);
-                parseCSVFile(message);
-                dataHolder=d3.csvParse(message);
-               // console.log(dataHolder);
-                // You can handle the server's response here
-            })
-            .catch(error => console.error('Error:', error));
-     */  
-          
-/*        } catch (error) {
-            console.error('Error fetching or parsing POST data:', error);
-        }          
-*/
-
-
-
-
-//        }
 
